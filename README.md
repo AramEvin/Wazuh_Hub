@@ -1,25 +1,46 @@
-# wazuh_hub 🛡️
+<div align="center">
 
-> **A community-driven knowledge base for Wazuh practitioners** — original detection rules, attack simulations, integrations, dashboards, and compliance labs built by the community, for the community.
+<img src="https://wazuh.com/uploads/2022/05/WAZUH.png" alt="Wazuh" width="220"/>
 
-<p align="center">
-  <img src="https://wazuh.com/uploads/2022/05/WAZUH.png" alt="Wazuh" height="60"/>
-</p>
+# wazuh_hub
 
-<p align="center">
-  <a href="https://github.com/YOUR_USERNAME/wazuh_hub/stargazers"><img src="https://img.shields.io/github/stars/YOUR_USERNAME/wazuh_hub?style=flat-square&color=3585F9" alt="Stars"/></a>
-  <a href="https://github.com/YOUR_USERNAME/wazuh_hub/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-3585F9?style=flat-square" alt="License"/></a>
-  <a href="https://wazuh.com"><img src="https://img.shields.io/badge/built%20for-Wazuh%204.x-0C62ED?style=flat-square" alt="Wazuh"/></a>
-  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/contributions-welcome-FEDD0B?style=flat-square" alt="Contributing"/></a>
-</p>
+**Community-driven detection rules · attack simulations · integrations · dashboards · compliance labs**
+
+*Built by the community. For the community. Beyond the official docs.*
 
 ---
 
-## What is this?
+![Wazuh](https://img.shields.io/badge/Wazuh-4.14.5-3585F9?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI4IiBjeT0iOCIgcj0iNCIgZmlsbD0iI0ZFREQwQiIvPjwvc3ZnPg==)
+![License](https://img.shields.io/badge/license-MIT-0C62ED?style=flat-square)
+![Contributions](https://img.shields.io/badge/contributions-welcome-FEDD0B?style=flat-square)
+![Ambassador](https://img.shields.io/badge/Wazuh-Ambassador%20Program-363078?style=flat-square)
 
-**wazuh_hub** is an open community repository focused on original, practical Wazuh content that goes beyond the official documentation. Every resource here is independently created to help security practitioners learn, experiment, and level up their Wazuh deployments — from home labs to production SOCs.
+</div>
 
-This is part of the **Wazuh Ambassador Program** initiative. All content is original, tested, and community-verified.
+---
+
+## What is wazuh_hub?
+
+**wazuh_hub** is an open repository of original, practical Wazuh content that goes beyond what you find in the official documentation. Every resource here is independently created, lab-tested, and community-verified — from custom detection rules to full attack simulation walkthroughs.
+
+This project is part of the **Wazuh Ambassador Program**. Nothing here is copied from official sources. Everything is built from real-world experience to solve real-world problems.
+
+> 📖 For core platform documentation, always refer to the **[Official Wazuh Documentation](https://documentation.wazuh.com/current/index.html)** — this repo extends it, never replaces it.
+
+---
+
+## Environment
+
+All content in this repository is developed and tested against:
+
+| Component | Version |
+|---|---|
+| **Wazuh Manager** | 4.14.5 |
+| **Wazuh Indexer** | 4.14.5 |
+| **Wazuh Dashboard** | 4.14.5 |
+| **Wazuh Agent** | 4.14.5 |
+
+> Content may work on earlier 4.x versions but is not guaranteed. Check individual folder READMEs for version-specific notes.
 
 ---
 
@@ -28,37 +49,36 @@ This is part of the **Wazuh Ambassador Program** initiative. All content is orig
 ```
 wazuh_hub/
 │
-├── 📁 detection-rules/       # Custom XML detection rules by OS and platform
-│   ├── linux/                #   Rules for Linux endpoints and services
-│   ├── windows/              #   Rules for Windows events and Sysmon
-│   └── cloud/                #   Rules for AWS, Azure, GCP log sources
+├── 📁 detection-rules/       # Original custom XML rules by platform
+│   ├── linux/                #   Linux endpoint and service log rules
+│   ├── windows/              #   Windows Event Log and Sysmon rules
+│   └── cloud/                #   AWS CloudTrail, Azure Activity, GCP Audit
 │
-├── 📁 simulations/           # Step-by-step attack simulation labs
-│   ├── brute-force/          #   SSH/RDP/web brute force scenarios
-│   ├── ransomware/           #   Ransomware behavior emulation
-│   └── lateral-movement/     #   Pass-the-hash, pivoting, discovery
+├── 📁 simulations/           # Controlled attack labs with expected alerts
+│   ├── brute-force/          #   SSH, RDP, web application brute force
+│   ├── ransomware/           #   File encryption behavior emulation
+│   └── lateral-movement/     #   Pass-the-hash, pivoting, discovery TTPs
 │
-├── 📁 integrations/          # Connecting Wazuh to external platforms
-│   ├── slack/                #   Alert forwarding to Slack channels
+├── 📁 integrations/          # Wazuh connected to external platforms
+│   ├── slack/                #   Real-time alert forwarding to Slack
 │   ├── thehive/              #   Automated case creation in TheHive
-│   └── virustotal/           #   IOC enrichment via VirusTotal API
+│   └── virustotal/           #   File hash enrichment via VirusTotal API
 │
-├── 📁 dashboards/            # Importable Wazuh Dashboard visualizations
-│   ├── threat-hunting/       #   TTP hunting panels
-│   ├── compliance/           #   Compliance overview dashboards
-│   └── fim/                  #   File Integrity Monitoring views
+├── 📁 dashboards/            # Importable .ndjson visualisation panels
+│   ├── threat-hunting/       #   MITRE ATT&CK TTP hunting views
+│   ├── compliance/           #   Multi-framework compliance overview
+│   └── fim/                  #   File Integrity Monitoring activity
 │
-├── 📁 compliance/            # Compliance mapping labs and documentation
-│   ├── pci-dss/              #   PCI DSS v4 coverage with Wazuh
-│   ├── hipaa/                #   HIPAA technical safeguard mapping
-│   └── gdpr/                 #   GDPR Article 32 technical controls
+├── 📁 compliance/            # Framework mapping labs and documentation
+│   ├── pci-dss/              #   PCI DSS v4.0 technical control coverage
+│   ├── hipaa/                #   HIPAA PHI access and integrity controls
+│   └── gdpr/                 #   GDPR Article 32 technical safeguards
 │
-├── 📁 docs/                  # Guides, architecture diagrams, references
-│   ├── setup-guides/         #   Lab setup walkthroughs
-│   └── architecture/         #   Wazuh deployment diagrams
+├── 📁 docs/                  # Setup guides and reference documentation
+│   └── setup-guides/         #   Lab environment walkthroughs
 │
-├── 📄 CONTRIBUTING.md        # How to contribute to this repo
-└── 📄 LICENSE                # MIT License
+├── 📄 CONTRIBUTING.md
+└── 📄 LICENSE
 ```
 
 ---
@@ -67,49 +87,55 @@ wazuh_hub/
 
 ### Prerequisites
 
-- Wazuh 4.x (Server + Indexer + Dashboard) — see [`docs/setup-guides/`](docs/setup-guides/)
-- Linux or Windows endpoints with Wazuh Agent installed
-- Basic familiarity with Wazuh rules and alerts
+- Wazuh 4.14.5 stack (Manager + Indexer + Dashboard)
+- At least one Wazuh Agent on a monitored endpoint
+- Access to `/var/ossec/` on the Wazuh Manager
 
-### Using custom detection rules
+### Deploy a custom detection rule
 
 ```bash
-# Copy a rule file to your Wazuh manager
-sudo cp detection-rules/linux/local_rules.xml /var/ossec/etc/rules/
+# Copy the rule to your manager's custom rules directory
+sudo cp detection-rules/linux/your-rule.xml /var/ossec/etc/rules/
 
-# Validate and reload
+# Test the rule logic without restarting
 sudo /var/ossec/bin/wazuh-logtest
+
+# Apply changes
 sudo systemctl restart wazuh-manager
 ```
 
-### Running a simulation lab
+### Run a simulation lab
 
-Each simulation folder contains a `README.md` with full step-by-step instructions, expected alert triggers, and MITRE ATT&CK mapping. Start with:
+Each simulation folder contains a `README.md` with full step-by-step instructions, the simulation script, expected Wazuh alert output, and MITRE ATT&CK mapping. Start here:
 
 ```
 simulations/brute-force/README.md
 ```
 
+### Import a dashboard
+
+1. Open Wazuh Dashboard → **Stack Management → Saved Objects**
+2. Click **Import** and select any `.ndjson` file from `dashboards/`
+3. Choose your index pattern when prompted
+
 ---
 
-## Content Categories
+## Content Overview
 
-| Category | What's Inside | Skill Level |
+| Folder | What's Inside | Level |
 |---|---|---|
-| [Detection Rules](detection-rules/) | Custom `.xml` rules for real-world threats | Beginner → Advanced |
-| [Simulations](simulations/) | Controlled attack labs with expected detections | Intermediate |
-| [Integrations](integrations/) | Scripts and configs for SOAR/notification platforms | Intermediate |
-| [Dashboards](dashboards/) | Importable `.ndjson` visualisation panels | Beginner |
-| [Compliance](compliance/) | Framework mapping and evidence documentation | Intermediate → Advanced |
-| [Docs](docs/) | Setup walkthroughs and architecture notes | Beginner |
+| [detection-rules/](detection-rules/) | Custom `.xml` rules for real-world threats | Beginner → Advanced |
+| [simulations/](simulations/) | Attack labs with alert validation | Intermediate |
+| [integrations/](integrations/) | SOAR and notification platform configs | Intermediate |
+| [dashboards/](dashboards/) | Ready-to-import `.ndjson` panels | Beginner |
+| [compliance/](compliance/) | Framework control mapping and evidence | Intermediate → Advanced |
+| [docs/](docs/) | Lab setup and configuration guides | Beginner |
 
 ---
 
 ## MITRE ATT&CK Coverage
 
-Content in this repo is mapped to MITRE ATT&CK wherever applicable. Each detection rule and simulation includes ATT&CK tactic and technique references in its README.
-
-| Tactic | Techniques Covered |
+| Tactic | Techniques |
 |---|---|
 | Initial Access | T1190, T1078, T1566 |
 | Execution | T1059, T1053 |
@@ -118,40 +144,43 @@ Content in this repo is mapped to MITRE ATT&CK wherever applicable. Each detecti
 | Exfiltration | T1041, T1048 |
 | Impact | T1486, T1490 |
 
-> Full mapping details are included in each module's `README.md`.
+Full technique mappings are included in each module's `README.md`.
 
 ---
 
-## How to Contribute
+## Official Resources
 
-Community contributions are welcome and encouraged. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for full guidelines.
+| Resource | Link |
+|---|---|
+| Official Documentation | [documentation.wazuh.com](https://documentation.wazuh.com/current/index.html) |
+| Wazuh GitHub | [github.com/wazuh](https://github.com/wazuh/wazuh) |
+| Community Slack | [wazuh.com/community](https://wazuh.com/community/) |
+| Ambassador Program | [wazuh.com](https://wazuh.com) |
+
+---
+
+## Contributing
+
+Community contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full guide.
 
 **Short version:**
-1. Fork this repository
-2. Create a feature branch: `git checkout -b feat/your-rule-name`
-3. Add your content following the folder conventions
-4. Include a `README.md` in your subfolder
-5. Open a Pull Request with a clear description
-
-Every rule, simulation, or guide submitted is reviewed for accuracy and originality before merging.
-
----
-
-## Community & Support
-
-| Channel | Link |
-|---|---|
-| Wazuh Community Slack | [wazuh.com/community](https://wazuh.com/community/) |
-| Wazuh GitHub | [github.com/wazuh](https://github.com/wazuh) |
-| Official Documentation | [documentation.wazuh.com](https://documentation.wazuh.com) |
-| Ambassador Program | [wazuh.com/ambassador](https://wazuh.com) |
+1. Fork this repo
+2. Branch: `git checkout -b feat/your-content-name`
+3. Add content with a `README.md` in your subfolder
+4. Open a Pull Request
 
 ---
 
 ## License
 
-This repository is released under the [MIT License](LICENSE). All content is original and independently created by contributors. Wazuh® is a registered trademark of Wazuh Inc. This project is not officially affiliated with or endorsed by Wazuh Inc.
+MIT License — see [LICENSE](LICENSE).
+
+Wazuh® is a registered trademark of Wazuh Inc. This project is an independent community initiative and is not officially affiliated with or endorsed by Wazuh Inc.
 
 ---
 
-<p align="center">Made with ❤️ for the open-source security community</p>
+<div align="center">
+
+Made with ❤️ for the open-source security community
+
+</div>
