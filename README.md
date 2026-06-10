@@ -1,186 +1,130 @@
 <div align="center">
 
-<img src="https://wazuh.com/uploads/2022/05/WAZUH.png" alt="Wazuh" width="220"/>
+<img src="https://img.shields.io/badge/Wazuh-SIEM%20Documentation%20Hub-0066CC?style=for-the-badge&logo=shield&logoColor=white" alt="Wazuh Hub"/>
 
-# wazuh_hub
+# 🛡️ Wazuh_Hub
 
-**Community-driven detection rules · attack simulations · integrations · dashboards · compliance labs**
+**A comprehensive open-source knowledge base for deploying, tuning, and mastering Wazuh SIEM**
 
-*Built by the community. For the community. Beyond the official docs.*
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+[![Wazuh](https://img.shields.io/badge/Wazuh-4.x-blue?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+)](https://wazuh.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![Documentation](https://img.shields.io/badge/docs-in%20progress-orange?style=flat-square)](#)
+[![Stars](https://img.shields.io/github/stars/YOUR_USERNAME/Wazuh_Hub?style=flat-square&color=yellow)](https://github.com/YOUR_USERNAME/Wazuh_Hub/stargazers)
 
----
+<br/>
 
-![Wazuh](https://img.shields.io/badge/Wazuh-4.14.5-3585F9?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSI4IiBjeT0iOCIgcj0iNCIgZmlsbD0iI0ZFREQwQiIvPjwvc3ZnPg==)
-![License](https://img.shields.io/badge/license-MIT-0C62ED?style=flat-square)
-![Contributions](https://img.shields.io/badge/contributions-welcome-FEDD0B?style=flat-square)
-![Ambassador](https://img.shields.io/badge/Wazuh-Ambassador%20Program-363078?style=flat-square)
+> *From fresh install to production-grade threat detection — everything in one place.*
 
 </div>
 
 ---
 
-## What is wazuh_hub?
+## 📖 What is Wazuh_Hub?
 
-**wazuh_hub** is an open repository of original, practical Wazuh content that goes beyond what you find in the official documentation. Every resource here is independently created, lab-tested, and community-verified — from custom detection rules to full attack simulation walkthroughs.
-
-This project is part of the **Wazuh Ambassador Program**. Nothing here is copied from official sources. Everything is built from real-world experience to solve real-world problems.
-
-> 📖 For core platform documentation, always refer to the **[Official Wazuh Documentation](https://documentation.wazuh.com/current/index.html)** — this repo extends it, never replaces it.
-
----
-
-## Environment
-
-All content in this repository is developed and tested against:
-
-| Component | Version |
-|---|---|
-| **Wazuh Manager** | 4.14.5 |
-| **Wazuh Indexer** | 4.14.5 |
-| **Wazuh Dashboard** | 4.14.5 |
-| **Wazuh Agent** | 4.14.5 |
-
-> Content may work on earlier 4.x versions but is not guaranteed. Check individual folder READMEs for version-specific notes.
-
----
-
-## Repository Map
+**Wazuh_Hub** is a structured documentation repository covering all aspects of [Wazuh](https://wazuh.com) — the open-source SIEM, XDR, and compliance platform. Whether you are setting up your first agent or engineering advanced detection pipelines, this hub has you covered.
 
 ```
-wazuh_hub/
-│
-├── 📁 detection-rules/       # Original custom XML rules by platform
-│   ├── linux/                #   Linux endpoint and service log rules
-│   ├── windows/              #   Windows Event Log and Sysmon rules
-│   └── cloud/                #   AWS CloudTrail, Azure Activity, GCP Audit
-│
-├── 📁 simulations/           # Controlled attack labs with expected alerts
-│   ├── brute-force/          #   SSH, RDP, web application brute force
-│   ├── ransomware/           #   File encryption behavior emulation
-│   └── lateral-movement/     #   Pass-the-hash, pivoting, discovery TTPs
-│
-├── 📁 integrations/          # Wazuh connected to external platforms
-│   ├── slack/                #   Real-time alert forwarding to Slack
-│   ├── thehive/              #   Automated case creation in TheHive
-│   └── virustotal/           #   File hash enrichment via VirusTotal API
-│
-├── 📁 dashboards/            # Importable .ndjson visualisation panels
-│   ├── threat-hunting/       #   MITRE ATT&CK TTP hunting views
-│   ├── compliance/           #   Multi-framework compliance overview
-│   └── fim/                  #   File Integrity Monitoring activity
-│
-├── 📁 compliance/            # Framework mapping labs and documentation
-│   ├── pci-dss/              #   PCI DSS v4.0 technical control coverage
-│   ├── hipaa/                #   HIPAA PHI access and integrity controls
-│   └── gdpr/                 #   GDPR Article 32 technical safeguards
-│
-├── 📁 docs/                  # Setup guides and reference documentation
-│   └── setup-guides/         #   Lab environment walkthroughs
-│
-├── 📄 CONTRIBUTING.md
-└── 📄 LICENSE
+📦 Wazuh_Hub
+ ┣ 📂 installation/        → Step-by-step setup guides
+ ┣ 📂 detection-rules/     → Custom rules & alert tuning
+ ┣ 📂 integrations/        → Third-party integration tutorials
+ ┗ 📂 architecture/        → Diagrams & deployment notes
 ```
 
 ---
 
-## Quick Start
+## 🗂️ Table of Contents
 
-### Prerequisites
-
-- Wazuh 4.14.5 stack (Manager + Indexer + Dashboard)
-- At least one Wazuh Agent on a monitored endpoint
-- Access to `/var/ossec/` on the Wazuh Manager
-
-### Deploy a custom detection rule
-
-```bash
-# Copy the rule to your manager's custom rules directory
-sudo cp detection-rules/linux/your-rule.xml /var/ossec/etc/rules/
-
-# Test the rule logic without restarting
-sudo /var/ossec/bin/wazuh-logtest
-
-# Apply changes
-sudo systemctl restart wazuh-manager
-```
-
-### Run a simulation lab
-
-Each simulation folder contains a `README.md` with full step-by-step instructions, the simulation script, expected Wazuh alert output, and MITRE ATT&CK mapping. Start here:
-
-```
-simulations/brute-force/README.md
-```
-
-### Import a dashboard
-
-1. Open Wazuh Dashboard → **Stack Management → Saved Objects**
-2. Click **Import** and select any `.ndjson` file from `dashboards/`
-3. Choose your index pattern when prompted
+- [🚀 Installation & Setup](#-installation--setup)
+- [🔍 Detection Rules & Alerts](#-detection-rules--alerts)
+- [🔗 Integration Tutorials](#-integration-tutorials)
+- [🏗️ Architecture & Diagrams](#-architecture--diagrams)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
 
 ---
 
-## Content Overview
+## 🚀 Installation & Setup
 
-| Folder | What's Inside | Level |
+> Step-by-step guides for deploying Wazuh in various environments.
+
+| Guide | Description | Status |
 |---|---|---|
-| [detection-rules/](detection-rules/) | Custom `.xml` rules for real-world threats | Beginner → Advanced |
-| [simulations/](simulations/) | Attack labs with alert validation | Intermediate |
-| [integrations/](integrations/) | SOAR and notification platform configs | Intermediate |
-| [dashboards/](dashboards/) | Ready-to-import `.ndjson` panels | Beginner |
-| [compliance/](compliance/) | Framework control mapping and evidence | Intermediate → Advanced |
-| [docs/](docs/) | Lab setup and configuration guides | Beginner |
+| [Single-Node Install](installation/single-node.md) | All-in-one Wazuh stack on one machine | ✅ Done |
+| [Multi-Node Cluster](installation/multi-node.md) | Distributed setup for production | ✅ Done |
+| [Docker Deployment](installation/docker.md) | Containerized stack with Docker Compose | ✅ Done |
+| [Agent Enrollment](installation/agent-enrollment.md) | Linux, Windows & macOS agent setup | 🔄 In Progress |
+| [Kubernetes Deployment](installation/kubernetes.md) | Helm chart & K8s manifests | 📝 Planned |
 
 ---
 
-## MITRE ATT&CK Coverage
+## 🔍 Detection Rules & Alerts
 
-| Tactic | Techniques |
-|---|---|
-| Initial Access | T1190, T1078, T1566 |
-| Execution | T1059, T1053 |
-| Persistence | T1547, T1136 |
-| Lateral Movement | T1550, T1021 |
-| Exfiltration | T1041, T1048 |
-| Impact | T1486, T1490 |
+> Custom Wazuh rules, decoders, and alert fine-tuning documentation.
 
-Full technique mappings are included in each module's `README.md`.
-
----
-
-## Official Resources
-
-| Resource | Link |
-|---|---|
-| Official Documentation | [documentation.wazuh.com](https://documentation.wazuh.com/current/index.html) |
-| Wazuh GitHub | [github.com/wazuh](https://github.com/wazuh/wazuh) |
-| Community Slack | [wazuh.com/community](https://wazuh.com/community/) |
-| Ambassador Program | [wazuh.com](https://wazuh.com) |
+| Topic | Description | Status |
+|---|---|---|
+| [Custom Rules Basics](detection-rules/custom-rules-basics.md) | Writing your first detection rule | ✅ Done |
+| [Decoder Development](detection-rules/decoders.md) | Parsing custom log formats | ✅ Done |
+| [Brute Force Detection](detection-rules/brute-force.md) | SSH, RDP, and web login attacks | ✅ Done |
+| [Privilege Escalation](detection-rules/privilege-escalation.md) | Linux & Windows escalation alerts | 🔄 In Progress |
+| [Tuning False Positives](detection-rules/false-positives.md) | Reducing noise in your alerts | 📝 Planned |
 
 ---
 
-## Contributing
+## 🔗 Integration Tutorials
 
-Community contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full guide.
+> Connecting Wazuh with the tools in your security ecosystem.
 
-**Short version:**
-1. Fork this repo
-2. Branch: `git checkout -b feat/your-content-name`
-3. Add content with a `README.md` in your subfolder
-4. Open a Pull Request
+| Integration | Description | Status |
+|---|---|---|
+| [TheHive](integrations/thehive.md) | Case management & incident response | ✅ Done |
+| [Shuffle SOAR](integrations/shuffle.md) | Automated playbooks with Shuffle | ✅ Done |
+| [Slack Alerts](integrations/slack.md) | Real-time notifications to Slack | ✅ Done |
+| [MISP Threat Intel](integrations/misp.md) | IOC enrichment with MISP | 🔄 In Progress |
+| [Grafana Dashboard](integrations/grafana.md) | Metrics visualization with Grafana | 📝 Planned |
+| [Cortex Analyzers](integrations/cortex.md) | Automated artifact analysis | 📝 Planned |
 
 ---
 
-## License
+## 🏗️ Architecture & Diagrams
 
-MIT License — see [LICENSE](LICENSE).
+> Visual references for understanding and designing Wazuh deployments.
 
-Wazuh® is a registered trademark of Wazuh Inc. This project is an independent community initiative and is not officially affiliated with or endorsed by Wazuh Inc.
+| Diagram | Description | Status |
+|---|---|---|
+| [Single-Node Architecture](architecture/single-node-diagram.md) | Overview of a standalone deployment | ✅ Done |
+| [Multi-Node Architecture](architecture/multi-node-diagram.md) | Indexer cluster + manager nodes | ✅ Done |
+| [Agent ↔ Manager Flow](architecture/agent-manager-flow.md) | Log and alert data flow diagram | 🔄 In Progress |
+| [Network Segmentation](architecture/network-segmentation.md) | Secure placement within a network | 📝 Planned |
+
+---
+
+## 🤝 Contributing
+
+Contributions are warmly welcome! If you have a guide, a custom rule, or a diagram to add:
+
+1. **Fork** this repository
+2. **Create** a branch: `git checkout -b feature/your-topic`
+3. **Commit** your changes: `git commit -m "Add: your topic description"`
+4. **Push** to your branch: `git push origin feature/your-topic`
+5. **Open** a Pull Request
+
+Please follow the [contribution guidelines](CONTRIBUTING.md) and keep documentation clear and concise.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
 <div align="center">
 
 Made with ❤️ for the open-source security community
+
+⭐ **If this hub helped you, consider giving it a star!** ⭐
 
 </div>
