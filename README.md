@@ -1,166 +1,157 @@
-<div align="center">
+# wazuh_hub 🛡️
 
-<br/>
+> **A community-driven knowledge base for Wazuh practitioners** — original detection rules, attack simulations, integrations, dashboards, and compliance labs built by the community, for the community.
 
-# wazuh-hub
+<p align="center">
+  <img src="https://wazuh.com/uploads/2022/05/WAZUH.png" alt="Wazuh" height="60"/>
+</p>
 
-**Wazuh Ambassador Program — Original Community Content**
-
-<br/>
-
-[![Ambassador](https://img.shields.io/badge/Wazuh-Ambassador_Program-3585F9?style=for-the-badge)](https://wazuh.com/ambassador)
-[![License](https://img.shields.io/badge/License-MIT-2DA4AA?style=for-the-badge)](./LICENSE)
-[![Topics](https://img.shields.io/badge/Topics-8_Planned-0C62ED?style=for-the-badge)]()
-[![Content](https://img.shields.io/badge/Content-Original_%26_Lab--Tested-000000?style=for-the-badge)]()
-
-<br/>
-
-> *Free · Open · Lab-validated · Written for everyone*
-
-<br/>
-
-</div>
+<p align="center">
+  <a href="https://github.com/YOUR_USERNAME/wazuh_hub/stargazers"><img src="https://img.shields.io/github/stars/YOUR_USERNAME/wazuh_hub?style=flat-square&color=3585F9" alt="Stars"/></a>
+  <a href="https://github.com/YOUR_USERNAME/wazuh_hub/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-3585F9?style=flat-square" alt="License"/></a>
+  <a href="https://wazuh.com"><img src="https://img.shields.io/badge/built%20for-Wazuh%204.x-0C62ED?style=flat-square" alt="Wazuh"/></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/contributions-welcome-FEDD0B?style=flat-square" alt="Contributing"/></a>
+</p>
 
 ---
 
-## What Is This?
+## What is this?
 
-**wazuh-hub** is an open community knowledge base built as part of the **Wazuh Ambassador Program**.
+**wazuh_hub** is an open community repository focused on original, practical Wazuh content that goes beyond the official documentation. Every resource here is independently created to help security practitioners learn, experiment, and level up their Wazuh deployments — from home labs to production SOCs.
 
-Every guide, detection rule, script, and walkthrough here was created from scratch — not copied from official documentation. The goal is to fill the gaps: real labs, honest explanations, practical rules, and content that goes beyond the official docs.
-
-Whether you are setting up your first Wazuh instance, running a production SOC, or planning a major version upgrade — there is something here for you.
+This is part of the **Wazuh Ambassador Program** initiative. All content is original, tested, and community-verified.
 
 ---
 
-## How to Use This Repository
+## Repository Map
 
-- **Read on GitHub** — every README renders cleanly in your browser, no setup needed
-- **Clone and run** — scripts and rules work directly in your lab
-- **Follow the links** — every document links to related topics
-- **Check back often** — new topics are added regularly
+```
+wazuh_hub/
+│
+├── 📁 detection-rules/       # Custom XML detection rules by OS and platform
+│   ├── linux/                #   Rules for Linux endpoints and services
+│   ├── windows/              #   Rules for Windows events and Sysmon
+│   └── cloud/                #   Rules for AWS, Azure, GCP log sources
+│
+├── 📁 simulations/           # Step-by-step attack simulation labs
+│   ├── brute-force/          #   SSH/RDP/web brute force scenarios
+│   ├── ransomware/           #   Ransomware behavior emulation
+│   └── lateral-movement/     #   Pass-the-hash, pivoting, discovery
+│
+├── 📁 integrations/          # Connecting Wazuh to external platforms
+│   ├── slack/                #   Alert forwarding to Slack channels
+│   ├── thehive/              #   Automated case creation in TheHive
+│   └── virustotal/           #   IOC enrichment via VirusTotal API
+│
+├── 📁 dashboards/            # Importable Wazuh Dashboard visualizations
+│   ├── threat-hunting/       #   TTP hunting panels
+│   ├── compliance/           #   Compliance overview dashboards
+│   └── fim/                  #   File Integrity Monitoring views
+│
+├── 📁 compliance/            # Compliance mapping labs and documentation
+│   ├── pci-dss/              #   PCI DSS v4 coverage with Wazuh
+│   ├── hipaa/                #   HIPAA technical safeguard mapping
+│   └── gdpr/                 #   GDPR Article 32 technical controls
+│
+├── 📁 docs/                  # Guides, architecture diagrams, references
+│   ├── setup-guides/         #   Lab setup walkthroughs
+│   └── architecture/         #   Wazuh deployment diagrams
+│
+├── 📄 CONTRIBUTING.md        # How to contribute to this repo
+└── 📄 LICENSE                # MIT License
+```
 
-**Not sure where to start?**
+---
 
-| I want to... | Go here |
+## Quick Start
+
+### Prerequisites
+
+- Wazuh 4.x (Server + Indexer + Dashboard) — see [`docs/setup-guides/`](docs/setup-guides/)
+- Linux or Windows endpoints with Wazuh Agent installed
+- Basic familiarity with Wazuh rules and alerts
+
+### Using custom detection rules
+
+```bash
+# Copy a rule file to your Wazuh manager
+sudo cp detection-rules/linux/local_rules.xml /var/ossec/etc/rules/
+
+# Validate and reload
+sudo /var/ossec/bin/wazuh-logtest
+sudo systemctl restart wazuh-manager
+```
+
+### Running a simulation lab
+
+Each simulation folder contains a `README.md` with full step-by-step instructions, expected alert triggers, and MITRE ATT&CK mapping. Start with:
+
+```
+simulations/brute-force/README.md
+```
+
+---
+
+## Content Categories
+
+| Category | What's Inside | Skill Level |
+|---|---|---|
+| [Detection Rules](detection-rules/) | Custom `.xml` rules for real-world threats | Beginner → Advanced |
+| [Simulations](simulations/) | Controlled attack labs with expected detections | Intermediate |
+| [Integrations](integrations/) | Scripts and configs for SOAR/notification platforms | Intermediate |
+| [Dashboards](dashboards/) | Importable `.ndjson` visualisation panels | Beginner |
+| [Compliance](compliance/) | Framework mapping and evidence documentation | Intermediate → Advanced |
+| [Docs](docs/) | Setup walkthroughs and architecture notes | Beginner |
+
+---
+
+## MITRE ATT&CK Coverage
+
+Content in this repo is mapped to MITRE ATT&CK wherever applicable. Each detection rule and simulation includes ATT&CK tactic and technique references in its README.
+
+| Tactic | Techniques Covered |
 |---|---|
-| Understand what Wazuh is | [01-all-about-wazuh](./01-all-about-wazuh/) |
-| Run a hands-on attack lab | [02-soc-simulation-lab](./02-soc-simulation-lab/) |
-| Plan a 4.x → 5.0 upgrade | [03-wazuh-5-migration](./03-wazuh-5-migration/) |
-| Deploy detection rules now | [02-soc-simulation-lab/rules](./02-soc-simulation-lab/rules/) |
+| Initial Access | T1190, T1078, T1566 |
+| Execution | T1059, T1053 |
+| Persistence | T1547, T1136 |
+| Lateral Movement | T1550, T1021 |
+| Exfiltration | T1041, T1048 |
+| Impact | T1486, T1490 |
+
+> Full mapping details are included in each module's `README.md`.
 
 ---
 
-## Repository Structure
+## How to Contribute
 
-```
-wazuh-hub/
-│
-├── README.md                        ← You are here
-├── LICENSE
-│
-├── 01-all-about-wazuh/              ← What Wazuh is and how it works
-│   ├── README.md                    ← Topic index
-│   ├── overview/README.md           ← The big picture
-│   ├── architecture/README.md       ← How all the pieces connect
-│   ├── components/README.md         ← Agent · Manager · Indexer · Dashboard
-│   └── use-cases/README.md          ← What people actually use it for
-│
-├── 02-soc-simulation-lab/           ← Full red-vs-blue attack & detection lab
-│   ├── README.md                    ← Complete lab walkthrough
-│   ├── rules/
-│   │   └── lab_custom_rules.xml     ← 13 detection rules, deploy-ready
-│   └── scripts/
-│       ├── setup-agent.sh           ← Automated agent configuration
-│       └── cleanup.sh               ← Full lab cleanup
-│
-├── 03-wazuh-5-migration/            ← 4.14 → 5.0 architecture & migration guide
-│   └── README.md
-│
-├── 04-home-lab-setup/               ← Coming soon
-├── 05-integrations/                 ← Coming soon
-├── 06-cloud-security/               ← Planned
-├── 07-compliance-labs/              ← Planned
-└── 08-threat-hunting/               ← Planned
-```
+Community contributions are welcome and encouraged. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for full guidelines.
+
+**Short version:**
+1. Fork this repository
+2. Create a feature branch: `git checkout -b feat/your-rule-name`
+3. Add your content following the folder conventions
+4. Include a `README.md` in your subfolder
+5. Open a Pull Request with a clear description
+
+Every rule, simulation, or guide submitted is reviewed for accuracy and originality before merging.
 
 ---
 
-## All Topics
+## Community & Support
 
-| # | Topic | Level | Status | What's Inside |
-|---|-------|-------|--------|---------------|
-| [01](./01-all-about-wazuh/) | All About Wazuh | 🟢 Beginner | ✅ Ready | Overview · Architecture · Components · Use Cases |
-| [02](./02-soc-simulation-lab/) | SOC Simulation Lab | 🟡 Intermediate | ✅ Ready | 9 attack phases · 13 rules · 100% detection · scripts |
-| [03](./03-wazuh-5-migration/) | Wazuh 5.0 Migration | 🔴 Advanced | ✅ Ready | 15 breaking points · eBPF FIM · blue-green strategy |
-| [04](./04-home-lab-setup/) | Home Lab Setup | 🟢 Beginner | 🔄 Coming Soon | VirtualBox · single node · agent enrollment |
-| [05](./05-integrations/) | Integrations | 🟡 Intermediate | 🔄 Coming Soon | Slack · TheHive · VirusTotal · MISP |
-| [06](./06-cloud-security/) | Cloud Security | 🟡 Intermediate | 📋 Planned | AWS · Azure · GCP |
-| [07](./07-compliance-labs/) | Compliance Labs | 🔴 Advanced | 📋 Planned | PCI DSS · HIPAA · GDPR · NIST |
-| [08](./08-threat-hunting/) | Threat Hunting | 🔴 Advanced | 📋 Planned | TTPs · MITRE ATT&CK · Dashboard queries |
+| Channel | Link |
+|---|---|
+| Wazuh Community Slack | [wazuh.com/community](https://wazuh.com/community/) |
+| Wazuh GitHub | [github.com/wazuh](https://github.com/wazuh) |
+| Official Documentation | [documentation.wazuh.com](https://documentation.wazuh.com) |
+| Ambassador Program | [wazuh.com/ambassador](https://wazuh.com) |
 
 ---
 
-## Published Content
+## License
 
-### [01 — All About Wazuh](./01-all-about-wazuh/)
-**Level:** Beginner → Intermediate
-
-Four guides that answer every foundational question about Wazuh before you touch a terminal. What it is, how the architecture works, what each component does, and how real organizations use it.
+This repository is released under the [MIT License](LICENSE). All content is original and independently created by contributors. Wazuh® is a registered trademark of Wazuh Inc. This project is not officially affiliated with or endorsed by Wazuh Inc.
 
 ---
 
-### [02 — SOC Simulation Lab](./02-soc-simulation-lab/)
-**Level:** Intermediate
-
-A complete red-vs-blue lab. Kali Linux attacks a Wazuh-monitored Ubuntu endpoint across 9 phases. Every technique detected. All 13 custom rules fired. Detection latency under 30 seconds. Full cleanup scripts included.
-
----
-
-### [03 — Wazuh 5.0 Migration Guide](./03-wazuh-5-migration/)
-**Level:** Advanced
-
-The most significant architecture change in Wazuh history. Filebeat removed, C++ engine rewrite, eBPF FIM, 15 breaking points that will silently or loudly break your deployment, and a proven blue-green migration strategy.
-
----
-
-## Quick Clone
-
-```bash
-git clone https://github.com/YOUR_USERNAME/wazuh-hub.git
-cd wazuh-hub
-```
-
-No setup required to read. Clone if you want to run the scripts or deploy the detection rules.
-
----
-
-## Contributing
-
-Contributions are welcome. One rule: **content must be original.**
-
-```bash
-git checkout -b topic/your-topic-name
-# Add a new numbered folder with its own README.md
-git commit -m "Add: your topic description"
-# Open a pull request
-```
-
----
-
-## About
-
-Built as part of the **[Wazuh Ambassador Program](https://wazuh.com/ambassador)** — a community initiative to grow open-source security knowledge worldwide.
-
-- Community: [community.wazuh.com](https://community.wazuh.com)
-- Official docs: [documentation.wazuh.com](https://documentation.wazuh.com)
-- Issues and ideas: [Open an issue](../../issues)
-
----
-
-<div align="center">
-<br/>
-<sub>MIT License · Independent community content · Not affiliated with Wazuh, Inc.</sub><br/>
-<sub>Wazuh® is a registered trademark of Wazuh, Inc.</sub>
-<br/><br/>
-</div>
+<p align="center">Made with ❤️ for the open-source security community</p>
