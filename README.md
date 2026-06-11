@@ -1,17 +1,24 @@
 <div align="center">
 
-<!-- Wazuh brand: #3585F9 blue, #FEDD0B yellow, #000000 black -->
-<img src="https://wazuh.com/brand/wazuh-logo.svg" alt="wazuh." width="200"/>
+```
+                    ██╗    ██╗ █████╗ ███████╗██╗   ██╗██╗  ██╗
+                    ██║    ██║██╔══██╗╚══███╔╝██║   ██║██║  ██║
+                    ██║ █╗ ██║███████║  ███╔╝ ██║   ██║███████║
+                    ██║███╗██║██╔══██║ ███╔╝  ██║   ██║██╔══██║
+                    ╚███╔███╔╝██║  ██║███████╗╚██████╔╝██║  ██║
+                     ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+```
 
 # wazuh-community-hub
 
 **The community knowledge base for Wazuh defenders.**
 Detection rules · Integrations · SOC labs · Compliance · Tutorials
 
-[![Stars](https://img.shields.io/github/stars/your-username/wazuh-community-hub?style=flat&color=3585F9&labelColor=000000)](../../stargazers)
-[![Contributors](https://img.shields.io/github/contributors/your-username/wazuh-community-hub?style=flat&color=FEDD0B&labelColor=000000)](../../graphs/contributors)
+[![Stars](https://img.shields.io/github/stars/AramEvin/wazuh-community-hub?style=flat&color=3585F9&labelColor=000000)](https://github.com/AramEvin/wazuh-community-hub/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/AramEvin/wazuh-community-hub?style=flat&color=FEDD0B&labelColor=000000)](https://github.com/AramEvin/wazuh-community-hub/graphs/contributors)
 [![License: MIT](https://img.shields.io/badge/License-MIT-3585F9?style=flat&labelColor=000000)](./LICENSE)
 [![Wazuh Ambassador](https://img.shields.io/badge/Wazuh-Ambassador-FEDD0B?style=flat&labelColor=000000)](https://wazuh.com/community/ambassadors/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-22c55e?style=flat&labelColor=000000)](../../pulls)
 
 ---
 
@@ -107,7 +114,7 @@ Custom XML rules not found in the default Wazuh ruleset — written for real-wor
 | `ssh_tunnel_detection.xml` | SSH port forwarding and tunneling behavior | Linux | T1572 |
 
 Each rule ships with:
-- Header comment explaining what it detects and why it matters
+- A comment header explaining what it detects and why it matters
 - A test command to trigger it in a lab environment
 - Recommended active response pairing
 
@@ -132,7 +139,7 @@ Real, tested configurations for extending Wazuh into your security stack:
 - **Shuffle** — SOAR playbook triggers mapped to Wazuh rule groups
 - **VirusTotal** — FIM hash enrichment on new or modified files
 - **MISP** — threat intel feed correlation with live Wazuh events
-- **Email** — HTML alert digest with rule context and remediation hint
+- **Email** — HTML alert digest with rule context and remediation hints
 
 Every guide includes: prerequisites → config snippets → how to verify it works.
 
@@ -150,13 +157,13 @@ Hands-on labs pairing attack techniques with the Wazuh alerts they produce:
 | Lateral Movement via PsExec | 🔴 Advanced | T1570 |
 | C2 Beacon Simulation via DNS Tunneling | 🔴 Advanced | T1071.004 |
 
-Lab format:
+Lab format for every simulation:
 ```
 1. Environment setup
 2. Execute the attack technique
 3. What Wazuh captures (log, alert, rule ID)
 4. Active Response option
-5. Dashboard query to hunt for it
+5. Dashboard query to hunt for it at scale
 ```
 
 ---
@@ -183,12 +190,12 @@ Every rule in this repo follows this structure:
 ```xml
 <!--
   Rule: Suspicious Cron Job by Non-Root User
-  Author: your-handle
+  Author: AramEvin
   Date: 2025-01-01
-  Purpose: Detects new cron entries added by unprivileged accounts,
+  Purpose: Detects new cron entries added by unprivileged accounts —
            a common persistence method after initial access.
-  Test:    As a non-root user, run: echo '* * * * * /tmp/evil.sh' | crontab -
-  MITRE:   T1053.003 – Scheduled Task/Job: Cron
+  Test:    As a non-root user run: echo '* * * * * /tmp/evil.sh' | crontab -
+  MITRE:   T1053.003 — Scheduled Task/Job: Cron
 -->
 <group name="linux_persistence,custom_rules,">
 
@@ -217,61 +224,62 @@ This repo complements but never replaces the official docs. Always refer to the 
 | 📖 Full Documentation | [documentation.wazuh.com](https://documentation.wazuh.com/current/index.html) |
 | 🚀 Installation Guide | [Installing Wazuh](https://documentation.wazuh.com/current/installation-guide/index.html) |
 | ⚙️ Agent Deployment | [Agent Enrollment](https://documentation.wazuh.com/current/user-manual/agent/agent-enrollment/index.html) |
-| 📝 Custom Rules Guide | [Custom Rules](https://documentation.wazuh.com/current/user-manual/ruleset/custom.html) |
-| 🔁 Active Response | [Active Response](https://documentation.wazuh.com/current/user-manual/capabilities/active-response/index.html) |
+| 📝 Custom Rules Guide | [Writing Custom Rules](https://documentation.wazuh.com/current/user-manual/ruleset/custom.html) |
+| 🔁 Active Response | [Active Response Docs](https://documentation.wazuh.com/current/user-manual/capabilities/active-response/index.html) |
 | ☁️ Cloud Security | [Cloud Security Monitoring](https://documentation.wazuh.com/current/cloud-security/index.html) |
 | 🛡️ Compliance | [Regulatory Compliance](https://documentation.wazuh.com/current/compliance/index.html) |
 | 🔗 Integrations | [Third-party Integrations](https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html) |
-| 🐛 GitHub Issues | [wazuh/wazuh on GitHub](https://github.com/wazuh/wazuh) |
-| 💬 Community Slack | [Join the Wazuh Community](https://wazuh.com/community/) |
+| 🐛 Wazuh on GitHub | [wazuh/wazuh](https://github.com/wazuh/wazuh) |
+| 💬 Community Slack | [Join the Community](https://wazuh.com/community/) |
 
 ---
 
 ## 🤝 Contributing
 
-All levels welcome — from fixing a typo to submitting a full SOC simulation.
+All levels welcome — from fixing a typo to submitting a full SOC simulation lab.
 
 ### How to Contribute
 
 ```bash
 # 1. Fork and clone
-git clone https://github.com/your-username/wazuh-community-hub.git
+git clone https://github.com/AramEvin/wazuh-community-hub.git
 
 # 2. Create a branch
 git checkout -b feat/my-detection-rule
 
-# 3. Add your content following the folder structure
+# 3. Add your content following the folder structure above
+
 # 4. Submit a pull request with a clear description
 ```
 
 ### Guidelines
 
-- **Original content only** — don't copy from official Wazuh docs
-- **Test your rules** before submitting — include the test command
+- **Original content only** — do not copy-paste from official Wazuh docs
+- **Test your rules** before submitting — include the test command in the comment header
 - **Comment your configs** — explain what and why, not just how
 - **Beginner awareness** — advanced content should include a Prerequisites section
-- Follow [Wazuh Branding Guidelines](https://wazuh.com) if including brand assets
+- Follow [Wazuh Branding Guidelines](https://wazuh.com) when using brand assets
 
-### Ideas Wanted
+### Content We're Looking For
 
 - Rules targeting specific CVEs or active malware families
 - Cloud-native detections (Azure AD anomalies, GCP audit log patterns)
 - Wazuh + Kubernetes runtime security labs
-- Wazuh on edge devices (Raspberry Pi, OT/ICS environments)
-- Non-English tutorials (contributions in any language welcome)
+- Wazuh on edge/OT devices (Raspberry Pi, ICS environments)
+- Non-English tutorials — contributions in any language are welcome
 
 ---
 
-## 🌐 Community Channels
+## 🌐 Community
 
-This repo is part of the **Wazuh Ambassador Program**.
+This repo is part of the **Wazuh Ambassador Program** — a global initiative for open-source security education.
 
 | Channel | Link |
 |---|---|
 | 💬 Community Slack | [wazuh.com/community](https://wazuh.com/community/) |
-| 🐦 X / Twitter | `#Wazuh` `#WazuhAmbassador` |
+| 🐦 X / Twitter | `#Wazuh` · `#WazuhAmbassador` |
 | 💼 LinkedIn | `#WazuhAmbassador` |
-| 🌐 Website | [wazuh.com](https://wazuh.com) |
+| 🌐 Wazuh Website | [wazuh.com](https://wazuh.com) |
 
 ---
 
@@ -280,7 +288,7 @@ This repo is part of the **Wazuh Ambassador Program**.
 Original content in this repository is licensed under [MIT](./LICENSE).
 
 > **Wazuh®** is a registered trademark of Wazuh, Inc.
-> This is an independent community project — not officially affiliated with or endorsed by Wazuh, Inc.
+> This is an independent community project and is not officially affiliated with or endorsed by Wazuh, Inc.
 > All Wazuh brand assets are used in compliance with the [Wazuh Branding and Trademark Guidelines](https://wazuh.com).
 
 ---
