@@ -6,7 +6,7 @@
 
 <p align="center">
   <b>The open-source community knowledge base for Wazuh defenders.</b><br/>
-  Custom detection rules · Integration guides · SOC simulations · Compliance labs · Tutorials
+  Detection rules · SOC simulations · Integrations · Compliance labs · Tutorials · 5.0 Migration
 </p>
 
 <p align="center">
@@ -46,26 +46,26 @@
   <img src="https://img.shields.io/badge/AWS-Azure-GCP-orange?style=flat-square&labelColor=111"/>
   <img src="https://img.shields.io/badge/PCI--DSS-HIPAA-GDPR-green?style=flat-square&labelColor=111"/>
   <img src="https://img.shields.io/badge/Docker-Kubernetes-blue?style=flat-square&labelColor=111"/>
+  <img src="https://img.shields.io/badge/Wazuh_5.0-Beta_Ready-FEDD0B?style=flat-square&labelColor=111"/>
 </p>
 
 ---
 
 > **This is not a mirror of official Wazuh documentation.**
-> Every file here is original, community-built content — detection logic, integration recipes, attack simulations, and walkthroughs created from real-world experience.
+> Every file here is original, community-built content — detection logic, integration recipes, attack simulations, migration guides, and walkthroughs built from real-world practice.
 > Official docs live at [documentation.wazuh.com](https://documentation.wazuh.com/current/index.html).
 
 ---
 
 ## 📋 Table of Contents
 
-- [What Is This?](#-what-is-this)
+- [Featured Content](#-featured-content)
 - [Repository Structure](#️-repository-structure)
 - [Quick Navigation](#-quick-navigation)
 - [Detection Rules](#-detection-rules)
 - [Integrations](#-integrations)
 - [SOC Simulations](#-soc-simulations)
 - [Compliance Labs](#-compliance-labs)
-- [Rule Writing Template](#-rule-writing-template)
 - [Official Wazuh Resources](#-official-wazuh-resources)
 - [Contributing](#-contributing)
 - [Community](#-community)
@@ -73,18 +73,54 @@
 
 ---
 
-## 🛡️ What Is This?
+## 🌟 Featured Content
 
-**wazuh-community-hub** is a living knowledge base built by and for the Wazuh community.
+### 🔴 Wazuh SOC Engineer Simulation Lab
+**[`/soc-simulations/full-attack-chain/`](./soc-simulations/full-attack-chain/README.md)**
 
-Whether you're a SOC analyst, a home lab builder, a security student, or an enterprise engineer — this repo gives you something you can use immediately: rules you can deploy, labs you can run, and integrations you can wire up today.
+<img src="https://img.shields.io/badge/Wazuh-4.14.5-3585F9?style=flat-square&labelColor=000000"/>
+<img src="https://img.shields.io/badge/Detection_Rate-13%2F13-22c55e?style=flat-square&labelColor=000000"/>
+<img src="https://img.shields.io/badge/Attack_Phases-5-ef4444?style=flat-square&labelColor=000000"/>
+<img src="https://img.shields.io/badge/Platform-Ubuntu_24.04_+_Kali-557C94?style=flat-square&labelColor=000000"/>
 
-| Audience | What to look for |
-|---|---|
-| 🆕 Just getting started | [`/tutorials/beginner`](./tutorials/beginner/) — setup guides, first alerts, basic rules |
-| ⚙️ Running Wazuh already | [`/detection-rules`](./detection-rules/) + [`/integrations`](./integrations/) |
-| 🔴 Blue team / SOC | [`/soc-simulations`](./soc-simulations/) — attack/detect labs with MITRE mapping |
-| 📋 Compliance focus | [`/compliance-labs`](./compliance-labs/) — PCI, HIPAA, GDPR, NIST |
+A full end-to-end attack and detection lab on Wazuh 4.14.5. Nine MITRE ATT&CK techniques executed across five phases — every single one detected with custom rules.
+
+| Phase | Technique | MITRE | Level | Result |
+|---|---|---|---|---|
+| 1 — Recon | Nmap Network Scan | [T1046](https://attack.mitre.org/techniques/T1046/) | Info | ✅ |
+| 2 — Initial Access | SSH Brute Force | [T1110.001](https://attack.mitre.org/techniques/T1110/001/) | 14 | ✅ |
+| 3 — Lateral | SMB Enum + Pass-the-Hash | [T1135](https://attack.mitre.org/techniques/T1135/) / [T1550.002](https://attack.mitre.org/techniques/T1550/002/) | 10 | ✅ |
+| 4 — Privilege | Account Creation + Shadow Access | [T1136.001](https://attack.mitre.org/techniques/T1136/001/) / [T1003.008](https://attack.mitre.org/techniques/T1003/008/) | 13 | ✅ |
+| 5 — Persist | SSH Backdoor + Crontab + Staging | [T1098.004](https://attack.mitre.org/techniques/T1098/004/) / [T1053.003](https://attack.mitre.org/techniques/T1053/003/) | 13 | ✅ |
+
+> 13 custom rules · 1,070 events detected · 100% detection rate · Under 30s detection latency
+> Includes: full rule XML, audit configs, lab cleanup script, dashboard queries, compliance mapping
+
+→ **[View Full Lab](./soc-simulations/full-attack-chain/README.md)**
+
+---
+
+### 🟡 Wazuh 4.14 → 5.0 Beta — Architecture Deep Dive
+**[`/wazuh-5-beta/`](./wazuh-5-beta/README.md)**
+
+<img src="https://img.shields.io/badge/Wazuh_5.0-Beta_April_2026-FEDD0B?style=flat-square&labelColor=000000"/>
+<img src="https://img.shields.io/badge/Breaking_Points-15-ef4444?style=flat-square&labelColor=000000"/>
+<img src="https://img.shields.io/badge/Migration-Blue--Green-3585F9?style=flat-square&labelColor=000000"/>
+
+The most significant architecture shift in Wazuh history. Filebeat is gone. analysisd is rewritten in C++. eBPF replaces auditd. 15 breaking changes to validate before cutover.
+
+| What changed | 4.14 | 5.0 Beta |
+|---|---|---|
+| Ingestion pipeline | Filebeat → Indexer | indexer-connector (in-process) |
+| Event processor | analysisd (C) | Engine (C++, parallel workers) |
+| FIM who-data | auditd dependency | eBPF (< 10ms latency, no auditd) |
+| Threat intel | wazuh-integratord (per-alert API) | Native CTI (in-stream, microseconds) |
+| Cluster | Optional (`cluster.disabled`) | Always on — option removed |
+| Manager root path | `/var/ossec/` | `/var/wazuh-manager/` |
+
+> ⚠️ Based on Beta 1 (April 2026). Validate against official docs before applying to production.
+
+→ **[View Architecture Guide](./wazuh-5-beta/README.md)**
 
 ---
 
@@ -93,42 +129,46 @@ Whether you're a SOC analyst, a home lab builder, a security student, or an ente
 ```
 wazuh-community-hub/
 │
-├── 📁 detection-rules/          # Original custom Wazuh XML rules
-│   ├── linux/                   # Linux endpoint detection
-│   ├── windows/                 # Windows endpoint detection
-│   ├── cloud/                   # AWS, Azure, GCP rules
-│   └── README.md
-│
-├── 📁 integrations/             # Step-by-step integration guides
-│   ├── slack/                   # Alert routing to Slack channels
-│   ├── thehive/                 # Auto case creation in TheHive
-│   ├── shuffle/                 # SOAR playbook triggers
-│   ├── virustotal/              # FIM hash enrichment
-│   ├── misp/                    # Threat intel feed correlation
-│   └── README.md
-│
-├── 📁 soc-simulations/          # Attack scenarios + expected Wazuh output
+├── 📁 soc-simulations/               # Attack simulations + Wazuh detections
+│   ├── full-attack-chain/            # ★ 9-technique lab, 13 rules, 100% detection
 │   ├── brute-force/
 │   ├── ransomware-behavior/
 │   ├── lateral-movement/
 │   └── README.md
 │
-├── 📁 compliance-labs/          # Wazuh mapped to compliance controls
+├── 📁 wazuh-5-beta/                  # ★ 4.14→5.0 architecture + 15 breaking points
+│   └── README.md
+│
+├── 📁 detection-rules/               # Original custom Wazuh XML rules
+│   ├── linux/
+│   ├── windows/
+│   ├── cloud/
+│   └── README.md
+│
+├── 📁 integrations/                  # Step-by-step integration guides
+│   ├── slack/
+│   ├── thehive/
+│   ├── shuffle/
+│   ├── virustotal/
+│   ├── misp/
+│   └── README.md
+│
+├── 📁 compliance-labs/               # Wazuh mapped to compliance controls
 │   ├── pci-dss/
 │   ├── hipaa/
 │   ├── gdpr/
 │   ├── nist/
 │   └── README.md
 │
-├── 📁 tutorials/                # Original walkthroughs by skill level
+├── 📁 tutorials/                     # Original walkthroughs by skill level
 │   ├── beginner/
 │   ├── intermediate/
 │   ├── advanced/
 │   └── README.md
 │
-├── 📁 dashboards/               # Custom dashboard JSON exports
-├── 📁 scripts/                  # Deployment and automation helpers
-└── 📁 resources/                # Cheat sheets, diagrams, reference cards
+├── 📁 dashboards/                    # Custom dashboard JSON exports
+├── 📁 scripts/                       # Deployment and automation helpers
+└── 📁 resources/                     # Cheat sheets, diagrams, reference cards
 ```
 
 ---
@@ -137,10 +177,11 @@ wazuh-community-hub/
 
 | I want to… | Go here |
 |---|---|
+| 🔴 Run a full SOC attack & detect lab | [`/soc-simulations/full-attack-chain`](./soc-simulations/full-attack-chain/) |
+| 🟡 Understand Wazuh 5.0 changes | [`/wazuh-5-beta`](./wazuh-5-beta/) |
 | 🆕 Install and configure Wazuh | [`/tutorials/beginner`](./tutorials/beginner/) |
 | 🧠 Deploy custom detection rules | [`/detection-rules`](./detection-rules/) |
 | 🔗 Connect Wazuh to Slack / TheHive / MISP | [`/integrations`](./integrations/) |
-| 🧪 Simulate attacks and validate alerts | [`/soc-simulations`](./soc-simulations/) |
 | 📋 Build compliance evidence with Wazuh | [`/compliance-labs`](./compliance-labs/) |
 | 📊 Import custom dashboards | [`/dashboards`](./dashboards/) |
 | 🛠️ Automate agent deployment | [`/scripts`](./scripts/) |
@@ -149,17 +190,17 @@ wazuh-community-hub/
 
 ## 🔴 Detection Rules
 
-Original XML rules covering threat scenarios not addressed in default Wazuh rulesets.
+Original XML rules covering threat scenarios not in default Wazuh rulesets.
 
 | Rule File | What It Detects | Platform | MITRE ATT&CK |
 |---|---|---|---|
-| `linux_cron_persistence.xml` | Non-root cron job modifications — persistence indicator | Linux | [T1053.003](https://attack.mitre.org/techniques/T1053/003/) |
+| `linux_cron_persistence.xml` | Non-root cron modifications — persistence indicator | Linux | [T1053.003](https://attack.mitre.org/techniques/T1053/003/) |
 | `win_encoded_powershell.xml` | Base64-encoded PowerShell execution chains | Windows | [T1059.001](https://attack.mitre.org/techniques/T1059/001/) |
 | `aws_s3_public_exposure.xml` | S3 bucket ACL changes granting public access | AWS | [T1530](https://attack.mitre.org/techniques/T1530/) |
-| `docker_escape_attempt.xml` | Container escape via privileged process execution | Docker | [T1611](https://attack.mitre.org/techniques/T1611/) |
-| `ssh_tunnel_detection.xml` | SSH port forwarding and tunneling behavior | Linux | [T1572](https://attack.mitre.org/techniques/T1572/) |
+| `docker_escape_attempt.xml` | Container escape via privileged process | Docker | [T1611](https://attack.mitre.org/techniques/T1611/) |
+| `ssh_tunnel_detection.xml` | SSH port forwarding and tunneling | Linux | [T1572](https://attack.mitre.org/techniques/T1572/) |
 | `win_lsass_access.xml` | LSASS memory access — credential theft indicator | Windows | [T1003.001](https://attack.mitre.org/techniques/T1003/001/) |
-| `cloud_iam_privilege_escalation.xml` | IAM role/policy changes enabling privilege escalation | AWS/Azure | [T1078.004](https://attack.mitre.org/techniques/T1078/004/) |
+| `lab_custom_rules.xml` | Full SOC lab ruleset (100100–100399) | Linux | Multi-TTP |
 
 **Rule ID ranges used in this repo:**
 
@@ -171,13 +212,9 @@ Original XML rules covering threat scenarios not addressed in default Wazuh rule
 | `103000 – 103999` | Container / Kubernetes |
 | `104000 – 104999` | Application / web server |
 
-> Every rule ships with a comment header, a lab test command, and a recommended active response pairing.
-
 ---
 
 ## 🔗 Integrations
-
-Working, tested configs for extending Wazuh into your security ecosystem:
 
 | Integration | What It Does | Guide |
 |---|---|---|
@@ -187,85 +224,33 @@ Working, tested configs for extending Wazuh into your security ecosystem:
 | **VirusTotal** | FIM hash enrichment on new or changed files | [`/integrations/virustotal`](./integrations/virustotal/) |
 | **MISP** | Threat intel correlation with live Wazuh events | [`/integrations/misp`](./integrations/misp/) |
 
-Each guide includes: prerequisites → config file → how to verify it's working → troubleshooting.
-
 ---
 
 ## 🧪 SOC Simulations
 
-Hands-on labs pairing real attack techniques with the Wazuh detections they trigger:
-
-| Simulation | Difficulty | MITRE Technique | Active Response? |
+| Simulation | Difficulty | MITRE | Active Response |
 |---|---|---|---|
-| SSH Brute Force → Detection + Block | 🟢 Beginner | [T1110.001](https://attack.mitre.org/techniques/T1110/001/) | ✅ Yes |
-| Mimikatz Credential Dump | 🟡 Intermediate | [T1003.001](https://attack.mitre.org/techniques/T1003/001/) | ✅ Yes |
-| Ransomware File Behavior Simulation | 🟡 Intermediate | [T1486](https://attack.mitre.org/techniques/T1486/) | ✅ Yes |
-| Lateral Movement via PsExec | 🔴 Advanced | [T1570](https://attack.mitre.org/techniques/T1570/) | ⚙️ Manual |
-| C2 Beacon via DNS Tunneling | 🔴 Advanced | [T1071.004](https://attack.mitre.org/techniques/T1071/004/) | ⚙️ Manual |
-
-**Every lab follows this format:**
-
-```
-1. Environment setup
-2. Execute the attack technique  
-3. What Wazuh captures (log source, rule ID, alert level)
-4. Active response option (if available)
-5. Dashboard query for hunting at scale
-```
+| [Full Attack Chain — 9 TTPs](./soc-simulations/full-attack-chain/) | 🔴 Full Lab | Multi | ✅ |
+| SSH Brute Force → Detection + Block | 🟢 Beginner | [T1110.001](https://attack.mitre.org/techniques/T1110/001/) | ✅ |
+| Mimikatz Credential Dump | 🟡 Intermediate | [T1003.001](https://attack.mitre.org/techniques/T1003/001/) | ✅ |
+| Ransomware File Behavior | 🟡 Intermediate | [T1486](https://attack.mitre.org/techniques/T1486/) | ✅ |
+| Lateral Movement via PsExec | 🔴 Advanced | [T1570](https://attack.mitre.org/techniques/T1570/) | ⚙️ |
+| C2 Beacon via DNS Tunneling | 🔴 Advanced | [T1071.004](https://attack.mitre.org/techniques/T1071/004/) | ⚙️ |
 
 ---
 
 ## 📋 Compliance Labs
 
-Build evidence-backed compliance posture using Wazuh:
-
-| Framework | Coverage Area |
+| Framework | Coverage |
 |---|---|
-| **PCI DSS** | File integrity monitoring, log retention, network segmentation alerts |
-| **HIPAA** | Audit log completeness, PHI system access monitoring |
-| **GDPR** | Data access alerting, breach detection scenarios, retention compliance |
-| **NIST CSF** | Mapping Wazuh to Identify / Protect / Detect / Respond / Recover |
-
-Each lab maps individual Wazuh capabilities to specific compliance controls with triggered alert examples.
-
----
-
-## ✍️ Rule Writing Template
-
-All rules in this repo follow this standard structure:
-
-```xml
-<!--
-  Rule    : Suspicious Cron Job by Non-Root User
-  Author  : AramEvin
-  Date    : 2025-01-01
-  Purpose : Detects cron entries added by unprivileged accounts —
-            a reliable indicator of persistence after initial access.
-  Test    : As a non-root user run:
-              echo '* * * * * /tmp/payload.sh' | crontab -
-  MITRE   : T1053.003 — Scheduled Task/Job: Cron
--->
-<group name="linux_persistence,custom_rules,">
-
-  <rule id="100001" level="10">
-    <if_group>syslog</if_group>
-    <match>CRON\[</match>
-    <regex>crontab for (?!root)</regex>
-    <description>Non-root user modified crontab — possible persistence attempt</description>
-    <mitre>
-      <id>T1053.003</id>
-    </mitre>
-    <group>persistence,cron,</group>
-  </rule>
-
-</group>
-```
+| **PCI DSS** | File integrity, log retention, network monitoring — controls 10.2.4, 10.2.5, 11.5 |
+| **HIPAA** | Audit log completeness, PHI system access — 164.312.c.1, 164.312.c.2 |
+| **GDPR** | Data access alerting, breach detection — IV_32.2, IV_35.7.d |
+| **NIST CSF** | Identify / Protect / Detect / Respond / Recover mapping |
 
 ---
 
 ## 📚 Official Wazuh Resources
-
-This repo complements but never replaces official documentation. Always verify against the source of truth:
 
 | Resource | Link |
 |---|---|
@@ -278,17 +263,15 @@ This repo complements but never replaces official documentation. Always verify a
 | 🛡️ Compliance | [Regulatory Compliance](https://documentation.wazuh.com/current/compliance/index.html) |
 | 🔗 Integrations | [Third-party Integrations](https://documentation.wazuh.com/current/user-manual/manager/manual-integration.html) |
 | 📦 FIM | [File Integrity Monitoring](https://documentation.wazuh.com/current/user-manual/capabilities/file-integrity/index.html) |
-| 🐛 Wazuh on GitHub | [wazuh/wazuh](https://github.com/wazuh/wazuh) |
-| 💬 Community Slack | [Join Here](https://wazuh.com/community/) |
-| 🐦 Follow on X | [@wazuh](https://twitter.com/wazuh) |
+| 🐛 GitHub | [wazuh/wazuh](https://github.com/wazuh/wazuh) |
+| 💬 Community | [Join Slack](https://wazuh.com/community/) |
+| 🐦 X / Twitter | [@wazuh](https://twitter.com/wazuh) |
 
 ---
 
 ## 🤝 Contributing
 
 All levels welcome — from a typo fix to a full simulation lab.
-
-### Steps
 
 ```bash
 # 1. Fork and clone
@@ -301,21 +284,19 @@ git checkout -b feat/your-contribution-name
 # 4. Open a pull request with a clear description
 ```
 
-### Guidelines
+**Guidelines**
+- Original content only — do not copy from official Wazuh docs
+- Test rules before submitting — include the test command in the comment header
+- Comment every config — explain what and why, not just how
+- Include a Prerequisites section for intermediate/advanced content
+- Respect [Wazuh Brand Guidelines](https://wazuh.com) when using brand assets
 
-- **Original content only** — do not copy from official Wazuh documentation
-- **Test rules before submitting** — include the test command in the comment header
-- **Comment every config** — explain what it does and why, not just how
-- **Include prerequisites** for intermediate/advanced content
-- Respect [Wazuh Brand Guidelines](https://wazuh.com) when using any brand assets
-
-### Ideas We're Looking For
-
+**Content we're looking for**
 - Rules targeting specific CVEs or active malware families
 - Azure AD / GCP audit log detection scenarios
 - Wazuh + Kubernetes runtime threat detection
 - Non-English tutorials (Arabic, Spanish, French, Turkish, etc.)
-- Wazuh on edge/OT/ICS environments
+- Wazuh on edge / OT / ICS environments
 
 ---
 
@@ -352,5 +333,5 @@ Original content is licensed under [MIT](./LICENSE).
 
 <p align="center">
   Made with ❤️ for the open-source security community<br/>
-  <strong>wazuh-community-hub</strong> · Maintained by <a href="https://github.com/AramEvin">AramEvin</a>
+  <b>wazuh-community-hub</b> · Maintained by <a href="https://github.com/AramEvin">AramEvin</a> — Wazuh Ambassador
 </p>
