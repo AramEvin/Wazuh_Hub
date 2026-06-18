@@ -423,4 +423,3 @@ find /opt/wazuh-backups -maxdepth 1 -type d -mtime +30 -exec rm -rf {} +
 ---
 
 *Wazuh Ambassador Content Hub | Original practitioner knowledge | 2025*  
-*Source: [wazuh-ambassador-content-hub](https://github.com/AramEvin/wazuh-ambassador-content-hub)*
