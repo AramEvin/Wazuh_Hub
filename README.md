@@ -2,7 +2,7 @@
 
 <img src="https://wazuh.com/uploads/2022/05/WAZUH.png" alt="Wazuh" width="180"/>
 
-# wazuh_hub
+# Wazuh Hub
 
 **Original community content for Wazuh practitioners**
 
